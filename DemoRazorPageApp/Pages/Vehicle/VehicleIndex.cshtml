@@ -1,0 +1,184 @@
+﻿@page
+@model VehicleIndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="main-wrapper">
+    <div class="inner-wrapper">
+        <div class="sidebar">
+            <a href="" class="logo">
+                <h5 class="logotext">LubeSoft</h5>
+            </a>
+            <div class="sidebar-menu">
+                <ul class="menu-ul">
+                    <li class="menu-li">
+                        <a href="" class="menu-a">Home</a>
+                    </li>
+                    <li class="menu-li">
+                        <a href="" class="menu-a">Work Order</a>
+                    </li>
+                    <li class="menu-li">
+                        <a href="" class="menu-a">Customer</a>
+                    </li>
+                    <li class="menu-li">
+                        <a href="" class="menu-a">ESM</a>
+                    </li>
+                    <li class="menu-li">
+                        <a href="" class="menu-a">Services</a>
+                    </li>
+                    <li class="menu-li">
+                        <a href="" class="menu-a">Vehicle</a>
+                    </li>
+                    <li class="menu-li">
+                        <a href="" class="menu-a">Fleet</a>
+                    </li>
+                    <li class="menu-li">
+                        <a href="" class="menu-a">Warning</a>
+                    </li>
+                    <li class="menu-li">
+                        <a href="" class="menu-a">Club</a>
+                    </li>
+                    <li class="menu-li">
+                        <a href="" class="menu-a">To Bay</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="body-main">
+            <div class="top-nav"></div>
+            <div class="body-wrapper">
+                <div class="body-wrapper-inr">
+                    <h3 class="heading">Search Vehicle</h3>
+                    <div class="input-main">
+                        <span class="img-otr">
+                            <img class="icon" src="~/img/search-icon.png" alt="icon">
+                        </span>
+                        <input id="search-string" class="input" type="text" placeholder="Enter Vehicle Name, VIN, Customer Name">
+                        <span class="img-otr img-right" onclick="ClearSearchField()">
+                            <img class="icon" src="~/img/close-icon.png" alt="icon">
+                        </span>
+                    </div>
+                    @*<div class="left-head-content">
+                        <span class="inner-number" id="total-items">0</span>
+                    </div>*@
+                    <table id="grdTableVehileDetail" class="table table-striped datatable-custom" style="width:100%">
+                        <thead>
+                            <tr class="table-main-header">
+                                <th>Id</th>
+                                <th>Vehicle ID</th>
+                                <th>Customer Name</th>
+                                <th>Phone</th>
+                                <th>Vehicle Description</th>
+                                <th>VIN</th>
+                                <th>Last Service</th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/custom-datatable.js"></script>
+
+<script>
+
+    window.onload = function () {
+
+        var $dataTable = $("#grdTableVehileDetail");
+        var table = $dataTable.DataTable({
+            aaSorting: [[5, 'asc']],
+            pagingType: 'simple',
+            language: {
+                //"info": "Displaying (_PAGE_) of _PAGES_",   // https://datatables.net/reference/option/language
+                paginate: {
+                    next: '<span class="icon-right"></span>',
+                    previous: '<span class=" icon-left"></span>'
+                },
+
+                "processing": '< img src="~/img/Spinner.svg" />',
+                "emptyTable": "No vehicles found."
+            },
+
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "searchPlaceholder": false,
+            "orderMulti": false, // for disable multiple column at once
+            "pageLength": 10,
+
+            "ajax": {
+                "url": "/Index/?handler=Data",
+                "type": "POST",
+                "datatype": "json",
+                "complete": function (data) {
+                    $('#total-items').prop('textContent', data['responseJSON'].recordsTotal);
+                }
+            },
+
+            "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false,
+                    "orderable": false,
+                },
+                {
+                    "targets": [1],
+                    "searchable": true,
+                    "orderable": false,
+                },
+                {
+                    "targets": [2],
+                    "searchable": false,
+                    "orderable": false,
+                },
+                {
+                    "targets": [3],
+                    "width": "20%",
+                    "searchable": false,
+                    "orderable": false,
+                    "className": "first-column"
+                },
+                {
+                    "targets": [4],
+                    "searchable": false,
+                    "orderable": false,
+                    "width": "20%"
+                },
+                {
+                    "targets": [5],
+                    "searchable": false,
+                    "orderable": false,
+                    "width": "10%"
+                },
+                {
+                    "targets": [6],
+                    "searchable": false,
+                    "orderable": true,
+                    "width": "15%"
+                }],
+
+            "columns": [
+                { "data": "id", "name": "Id", "autoWidth": false },
+                { "data": "vehicleId", "title": "Vehicle Id", "autoWidth": true },
+                { "data": "customerName", "title": "Customer Name", "autoWidth": true },
+                { "data": "phone", "title": "Phone", "autoWidth": true },
+                { "data": "vehicleDescription", "title": "Vehicle Description", "autoWidth": true },
+                { "data": "vin", "title": "VIN", "name": "VIN","autoWidth": true },
+                { "data": "lastServiceDate", "title": "Last Service", "name": "LastServiceDate", "autoWidth": true }
+                // data: key in view model; title: table header value; name: domain model key;
+            ]
+        });
+
+        customDatatable_init(table);
+    };
+
+    function ClearSearchField() {
+        $('#search-string').val('');
+        $('#grdTableVehileDetail').DataTable().search("").draw();
+    }
+</script>

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DemoRazorPageApp.Interfaces\DemoRazorPageApp.Interfaces.csproj" />
+    <ProjectReference Include="..\DemoRazorPageApp.Models\DemoRazorPageApp.Models.csproj" />
+    <ProjectReference Include="..\DemoRazorPageApp.Repos\DemoRazorPageApp.Repos.csproj" />
+    <ProjectReference Include="..\DemoRazorPageApp.Services\DemoRazorPageApp.Services.csproj" />
+  </ItemGroup>
+
+</Project>

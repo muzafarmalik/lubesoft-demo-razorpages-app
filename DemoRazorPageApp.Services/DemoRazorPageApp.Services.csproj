@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DemoRazorPageApp.Common\DemoRazorPageApp.Common.csproj" />
+    <ProjectReference Include="..\DemoRazorPageApp.Interfaces\DemoRazorPageApp.Interfaces.csproj" />
+    <ProjectReference Include="..\DemoRazorPageApp.Models\DemoRazorPageApp.Models.csproj" />
+    <ProjectReference Include="..\DemoRazorPageApp.Repos\DemoRazorPageApp.Repos.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.12" />
+  </ItemGroup>
+
+</Project>
