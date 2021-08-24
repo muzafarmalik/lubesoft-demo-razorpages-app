@@ -10,7 +10,8 @@ Please follow the below instructions.
 
 ## Run in Visual Studio
 First clone the project using any suitabel tool or via using windows powershell and git clone commands.
-Now open `\DemoRazorPageApp.sln` in Visual Studio and press `F5`.
+Use develop or master branch to clone.
+After cloning code, open `\DemoRazorPageApp.sln` in Visual Studio and press `F5`.
 
 ## Run in CLI
 Move to Now open `\DemoRazorPageApp.sln` folder and Run following commands in windows powershell. 
