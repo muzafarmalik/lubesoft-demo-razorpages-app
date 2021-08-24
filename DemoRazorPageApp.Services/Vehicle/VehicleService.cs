@@ -80,6 +80,25 @@ namespace DemoRazorPageApp.Services.Vehicle
             return DataService.Response(null, listResponse);
 
         }
+
+        public int TestGetAllVehicles()
+        {
+            IEnumerable<VehicleModel> vehicles;
+
+            using (StreamReader r = new StreamReader(_appSettings.VehicleDataFilePath))
+            {
+                string json = r.ReadToEnd();
+                vehicles = JsonConvert.DeserializeObject<VehicleJsonModel>(json).Vehicles;
+
+                //ToDO
+
+                //No need to transform if model is all same as binded model
+                //Or Use AutoMapper and Configs
+                //vehicles = await TransformIntoViewModel(vehiclesModel.Vehicles);
+            }
+
+            return vehicles.Count();
+        }
         #endregion
 
         #region Private Helpers
