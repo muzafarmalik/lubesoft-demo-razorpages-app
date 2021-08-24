@@ -16,7 +16,7 @@ Now open `\DemoRazorPageApp.sln` in Visual Studio and press `F5`.
 Move to Now open `\DemoRazorPageApp.sln` folder and Run following commands in windows powershell. 
 ```bash
 dotnet restore
-dotner build
+dotnet build
 dotnet run
 ```
 

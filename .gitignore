@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/DemoRazorPageApp/bin/Debug/net5.0
+/DemoRazorPageApp/obj
+/DemoRazorPageApp.Common/bin/Debug/net5.0
+/DemoRazorPageApp.Common/obj
+/DemoRazorPageApp.Interfaces/bin/Debug/net5.0
+/DemoRazorPageApp.Interfaces/obj
+/DemoRazorPageApp.Models/bin/Debug/net5.0
+/DemoRazorPageApp.Models/obj
+/DemoRazorPageApp.Repos/bin/Debug/net5.0
+/DemoRazorPageApp.Repos/obj
+/DemoRazorPageApp.Services/bin/Debug/net5.0
+/DemoRazorPageApp.Services/obj
