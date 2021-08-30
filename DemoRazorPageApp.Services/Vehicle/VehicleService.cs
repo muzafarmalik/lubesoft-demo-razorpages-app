@@ -126,6 +126,11 @@ namespace DemoRazorPageApp.Services.Vehicle
             var vehicles = await ReadVehicleJsonDataFile();
             return DataService.Response(null, vehicles);
         }
+        public async Task<BaseResponse> TestGetAllVehiclesForUnitTest(string vehiclesJsonFilePath)
+        {
+            var vehicles = await TestReadVehicleJsonDataFile(vehiclesJsonFilePath);
+            return DataService.Response(null, vehicles);
+        }
         #endregion
 
         #region Private Helpers
@@ -155,6 +160,23 @@ namespace DemoRazorPageApp.Services.Vehicle
             IEnumerable<VehicleModel> vehicles;
 
             using (StreamReader r = new StreamReader(_appSettings.VehicleDataFilePath))
+            {
+                string json = r.ReadToEnd();
+                vehicles = JsonConvert.DeserializeObject<VehicleJsonModel>(json).Vehicles;
+
+                //ToDO
+
+                //No need to transform if model is all same as binded model
+                //Or Use AutoMapper and Configs
+                //vehicles = await TransformIntoViewModel(vehiclesModel.Vehicles);
+            }
+            return vehicles;
+        }
+        private async Task<IEnumerable<VehicleModel>> TestReadVehicleJsonDataFile(string vehiclesJsonFilePath)
+        {
+            IEnumerable<VehicleModel> vehicles;
+
+            using (StreamReader r = new StreamReader(vehiclesJsonFilePath))
             {
                 string json = r.ReadToEnd();
                 vehicles = JsonConvert.DeserializeObject<VehicleJsonModel>(json).Vehicles;

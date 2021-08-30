@@ -50,18 +50,20 @@ namespace DemoRazorPageApp.Tests.Vehicle
 
             //Assert.IsTrue(vehicles.Count() == vehiclesCount);
 
+            string path = System.IO.Directory.GetCurrentDirectory() + "\\data\\vehicles.json";
+
             var mockVehicleService = new Mock<IVehicleService>();
             var mockAppSettings = new Mock<IAppSettings>();
             var mockVehicleRepo = new Mock<IVehicleRepo>();
            
             BaseResponse getResponse = new BaseResponse();
 
-            mockVehicleService.Setup(x => x.TestGetAllVehicles(vehiclesJsonFilePath)).ReturnsAsync(getResponse);
+            mockVehicleService.Setup(x => x.TestGetAllVehiclesForUnitTest(path)).ReturnsAsync(getResponse);
 
           
             var vehicleService = new VehicleService(mockAppSettings.Object, mockVehicleRepo.Object);
 
-            var response = await vehicleService.TestGetAllVehicles(vehiclesJsonFilePath);
+            var response = await vehicleService.TestGetAllVehiclesForUnitTest(path);
 
             Assert.IsInstanceOf<BaseResponse>(response);
             var result = response as BaseResponse;
