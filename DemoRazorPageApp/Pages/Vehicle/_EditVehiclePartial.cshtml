@@ -1,0 +1,114 @@
+﻿@page
+@using DemoRazorPageApp.Pages.Vehicle
+@model DemoRazorPageApp.Pages.Vehicle._EditVehiclePartialModel
+@{
+    var data = ViewData?.Model;
+    var dataModel = Model;
+    var viewDataa = ViewData;
+}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Edit Vehicle</h1>
+
+        @*<blockquote>
+            This is Artnet Toad, I won't tell you if this worked or not, you will have to figure that out yourself. Triple check your <b>Gallery ID</b>
+            before submitting!
+        </blockquote>*@
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" id="VehicleEditForm" onsubmit="OnVehicleSubmit()">
+            <input type="hidden" asp-for="Model.Id" name="Id"/>
+            <div class="form-group row">
+                <label class="col-lg-12 col-form-label" for="vehicelId">Vehicle #</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" asp-for="Model.VehicleId" name="vehicleId" readonly />
+                    <span asp-validation-for="Model.VehicleId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-12 col-form-label" for="customerName">Customer Name</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" asp-for="Model.CustomerName" name="customerName" required />
+                    <span asp-validation-for="Model.CustomerName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-12 col-form-label" for="phone">Phone</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" asp-for="Model.Phone" name="phone" required />
+                    <span asp-validation-for="Model.Phone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-12 col-form-label" for="vehicleDescription">Vehicle Description</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" asp-for="Model.VehicleDescription" name="vehicleDescription" required />
+                    <span asp-validation-for="Model.VehicleDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-12 col-form-label" for="vin">VIN</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" asp-for="Model.VIN" name="vin" required />
+                    <span asp-validation-for="Model.VIN" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-12 col-form-label" for="lastService">Last Service</label>
+                <div class="col-sm-5">
+                    <input type="date" class="form-control" asp-for="Model.LastServiceDate" name="lastServiceDate" required />
+                    <span asp-validation-for="Model.LastServiceDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    @*<a href="/Index" id="btnCancel" class="btn btn btn-dark" value="Cancel"></a>*@
+                    <a href="/Index" class="btn btn-primary btn-lg" tabindex="-1" role="button">Cancel</a><span></span>
+               
+                    <input type="submit" id="btnSubmit" class="btn btn-lg btn-dark" value="Save" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script>
+    function OnVehicleSubmit() {
+        debugger;
+        //var datastring = $("#VehicleEditForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "/Vehicle/_EditVehiclePartial/?handler=VehicleUpdate",
+            data: $('#VehicleEditForm').serialize(),
+            dataType: "json",
+            success: function (data) {
+                debugger;
+                var obj = jQuery.parseJSON(data);
+
+                if (obj != null) {
+                    alert("Vehicle has been updated successfully.")
+                    document.location.href = '/Index'
+                }
+                else {
+                    alert('Error occurred while updating Vehicle.');
+                }
+                debugger;
+                //var obj = jQuery.parseJSON(data); if the dataType is not specified as json uncomment this
+                // do what ever you want with the server response
+            },
+            error: function () {
+
+                debugger;
+
+                alert('Error occurred while updating Vehicle.');
+            }
+        });
+    }
+</script>

@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using System.Linq;
+using System;
 
 namespace DemoRazorPageApp.Services.Vehicle
 {
@@ -19,6 +20,10 @@ namespace DemoRazorPageApp.Services.Vehicle
         #region Properties
         private readonly IAppSettings _appSettings;
         private readonly IVehicleRepo _vehicleRepo;
+
+        public VehicleService()
+        {
+        }
 
         #endregion
 
@@ -35,19 +40,7 @@ namespace DemoRazorPageApp.Services.Vehicle
         #region Implementations
         public async Task<BaseResponse> GetAllVehicles(HttpRequest request)
         {
-            IEnumerable<VehicleModel> vehicles;
-
-            using (StreamReader r = new StreamReader(_appSettings.VehicleDataFilePath))
-            {
-                string json = r.ReadToEnd();
-                vehicles = JsonConvert.DeserializeObject<VehicleJsonModel>(json).Vehicles;
-
-                //ToDO
-
-                //No need to transform if model is all same as binded model
-                //Or Use AutoMapper and Configs
-                //vehicles = await TransformIntoViewModel(vehiclesModel.Vehicles);
-            }
+            var vehicles = await GetTransformedVehicleListModels();
 
             DataTableRequest model = DataService.TransformIntoModel(request);
 
@@ -80,24 +73,58 @@ namespace DemoRazorPageApp.Services.Vehicle
             return DataService.Response(null, listResponse);
 
         }
-
-        public int TestGetAllVehicles()
+        public async Task<BaseResponse> GetVehicleById(int vehicleId)
         {
-            IEnumerable<VehicleModel> vehicles;
+            var vehicles = await ReadVehicleJsonDataFile();
+            var vehicle = vehicles.Where(x => x.Id == vehicleId).FirstOrDefault();
+            return DataService.Response(null, vehicle);
+        }
 
-            using (StreamReader r = new StreamReader(_appSettings.VehicleDataFilePath))
+        public async Task<BaseResponse> UpdateVehicle(VehicleModel vehicleModel)
+        {
+            var vehicleUpdatedObject = new VehicleListModel
             {
-                string json = r.ReadToEnd();
-                vehicles = JsonConvert.DeserializeObject<VehicleJsonModel>(json).Vehicles;
+                Id = vehicleModel.Id,
+                VehicleId = vehicleModel.VehicleId,
+                CustomerName = vehicleModel.CustomerName,
+                VehicleDescription = vehicleModel.VehicleDescription,
+                Phone = vehicleModel.Phone,
+                VIN = vehicleModel.VIN,
+                LastServiceDate = vehicleModel.LastServiceDate.ToString("yyyy/MM/dd")
+            };
+            //Loading Existing data file
 
-                //ToDO
+            IEnumerable<VehicleListModel> vehicleListModel;
 
-                //No need to transform if model is all same as binded model
-                //Or Use AutoMapper and Configs
-                //vehicles = await TransformIntoViewModel(vehiclesModel.Vehicles);
+            vehicleListModel = await GetTransformedVehicleListModels();
+
+            var allExistingVehicles = vehicleListModel.ToList();
+            var vehicleToUpdate = allExistingVehicles.Where(x => x.Id == vehicleUpdatedObject.Id).FirstOrDefault();
+
+            allExistingVehicles.Remove(vehicleToUpdate);
+
+            allExistingVehicles.Add(vehicleUpdatedObject);
+
+         
+            if (allExistingVehicles != null && allExistingVehicles.Any())
+            {
+                System.IO.File.Delete(_appSettings.VehicleDataFilePath);
+
+                var vehicleWriteModel = new VehicleListJsonModel { Vehicles = allExistingVehicles };
+                var jsonFile = Utility.WriteJson(vehicleWriteModel, _appSettings.VehicleDataFilePath);
+
             }
+            //Reloading new file - json data of vehicles
+            vehicleListModel = await GetTransformedVehicleListModels();
 
-            return vehicles.Count();
+
+
+            return DataService.Response(null, vehicleListModel);
+        }
+        public async Task<BaseResponse> TestGetAllVehicles(string vehiclesJsonFilePath)
+        {
+            var vehicles = await ReadVehicleJsonDataFile();
+            return DataService.Response(null, vehicles);
         }
         #endregion
 
@@ -122,6 +149,38 @@ namespace DemoRazorPageApp.Services.Vehicle
             }
 
             return vehicleModelObj;
+        }
+        private async Task<IEnumerable<VehicleModel>> ReadVehicleJsonDataFile()
+        {
+            IEnumerable<VehicleModel> vehicles;
+
+            using (StreamReader r = new StreamReader(_appSettings.VehicleDataFilePath))
+            {
+                string json = r.ReadToEnd();
+                vehicles = JsonConvert.DeserializeObject<VehicleJsonModel>(json).Vehicles;
+
+                //ToDO
+
+                //No need to transform if model is all same as binded model
+                //Or Use AutoMapper and Configs
+                //vehicles = await TransformIntoViewModel(vehiclesModel.Vehicles);
+            }
+            return vehicles;
+        }
+        private async Task<IEnumerable<VehicleListModel>> GetTransformedVehicleListModels()
+        {
+            var vehiclesList = await ReadVehicleJsonDataFile();
+
+            return vehiclesList.Select(x => new VehicleListModel
+            {
+                Id = x.Id,
+                VehicleId = x.VehicleId,
+                CustomerName = x.CustomerName,
+                VehicleDescription = x.VehicleDescription,
+                Phone = x.Phone,
+                VIN = x.VIN,
+                LastServiceDate = x.LastServiceDate.ToString("yyyy/MM/dd")
+            });
         }
         #endregion
     }

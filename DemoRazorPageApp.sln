@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp.Interfaces
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp.Repos", "DemoRazorPageApp.Repos\DemoRazorPageApp.Repos.csproj", "{040EABCF-8984-4258-A858-E7CEC232EA42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoRazorPageApp.Tests", "DemoRazorPageApp.Tests\DemoRazorPageApp.Tests.csproj", "{BBC6C8F4-98B3-491D-800B-DC8391444238}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp.Tests", "DemoRazorPageApp.Tests\DemoRazorPageApp.Tests.csproj", "{BBC6C8F4-98B3-491D-800B-DC8391444238}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
