@@ -59,19 +59,19 @@ namespace DemoRazorPageApp.Pages.Vehicle
        
         public async Task<IActionResult> OnGetVehiclePartial(int vehicleId)
         {
-            var vehicle = (VehicleModel)_vehicleService.GetVehicleById(vehicleId).Result.Data;
+            var vehicle = (VehicleModel)_vehicleService.GetVehicleById(vehicleId)?.Result?.Data;
 
             var model = new _EditVehiclePartialModel(_logger, _appSettings, _vehicleService)
             {
                 Model = new VehicleModel
                 {
-                    Id = vehicle.Id,
-                    VehicleId = vehicle.VehicleId,
-                    CustomerName = vehicle.CustomerName,
-                    Phone = vehicle.Phone,
-                    VehicleDescription = vehicle.VehicleDescription,
-                    VIN = vehicle.VIN,
-                    LastServiceDate = vehicle.LastServiceDate
+                    Id = vehicle == null? 0: vehicle.Id,
+                    VehicleId = vehicle == null ? string.Empty : vehicle.VehicleId,
+                    CustomerName = vehicle == null ? string.Empty : vehicle.CustomerName,
+                    Phone = vehicle == null ? string.Empty : vehicle.Phone,
+                    VehicleDescription = vehicle == null ? string.Empty : vehicle.VehicleDescription,
+                    VIN = vehicle == null ? string.Empty : vehicle.VIN,
+                    LastServiceDate = vehicle == null ? DateTime.MinValue : vehicle.LastServiceDate
 
                 }
             };

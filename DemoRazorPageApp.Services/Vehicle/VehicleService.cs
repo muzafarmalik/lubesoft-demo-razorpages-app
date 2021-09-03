@@ -76,7 +76,7 @@ namespace DemoRazorPageApp.Services.Vehicle
         public async Task<BaseResponse> GetVehicleById(int vehicleId)
         {
             var vehicles = await ReadVehicleJsonDataFile();
-            var vehicle = vehicles.Where(x => x.Id == vehicleId).FirstOrDefault();
+            var vehicle = vehicles.Where(x => x.Id == vehicleId)?.FirstOrDefault();
             return DataService.Response(null, vehicle);
         }
 
@@ -162,7 +162,7 @@ namespace DemoRazorPageApp.Services.Vehicle
             using (StreamReader r = new StreamReader(_appSettings.VehicleDataFilePath))
             {
                 string json = r.ReadToEnd();
-                vehicles = JsonConvert.DeserializeObject<VehicleJsonModel>(json).Vehicles;
+                vehicles = JsonConvert.DeserializeObject<VehicleJsonModel>(json)?.Vehicles;
 
                 //ToDO
 

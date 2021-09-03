@@ -57,19 +57,19 @@
 <script type="text/javascript">
 
 
-    $(document).ready(function () {
+    //$(document).ready(function () {
 
-        debugger;
+    //    debugger;
        
-        var table = $('#grdTableVehileDetail').DataTable();
-        $('#grdTableVehileDetail tbody').on('click', 'tr', function () {
-            debugger;
+    //    var dataTble = $('#grdTableVehileDetail').DataTable();
+    //    $('#grdTableVehileDetail tbody').on('click', 'tr', function () {
+    //        debugger;
 
-            var dto = table.row(this).data();
+    //        var dto = dataTble.row(this).data();
 
-            $('#editVehicleSectionDiv').load('/Vehicle/_EditVehiclePartial/?handler=VehiclePartial&vehicleId=' + dto.id);
-        });
-    });
+    //        $('#editVehicleSectionDiv').load('/Vehicle/_EditVehiclePartial/?handler=VehiclePartial&vehicleId=' + dto.id);
+    //    });
+    //});
 
     
     //$('#grdTableVehileDetail').on('select.dt', function (e, dt, type, indexes) {
@@ -165,11 +165,11 @@
                 { "data": "vehicleDescription", "title": "Vehicle Description", "autoWidth": true },
                 { "data": "vin", "title": "VIN", "name": "VIN", "autoWidth": true },
                 { "data": "lastServiceDate", "title": "Last Service", "name": "LastServiceDate", "autoWidth": true }
-                // data: key in view model; title: table header value; name: domain model key;
             ]
         });
 
         customDatatable_init(table);
+        registerTableRowClickEvent();
     };
 
     function ClearSearchField() {
@@ -177,14 +177,16 @@
         $('#grdTableVehileDetail').DataTable().search("").draw();
     };
 
-    //$(document).on('click', 'table tbody tr', function () {
-    //    //code here
+    function registerTableRowClickEvent() {
 
-    //    debugger;
-    //    //var data = dt.rows(indexes).data();
-    //    //console.log(data);
+        var dataTble = $('#grdTableVehileDetail').DataTable();
+        $('#grdTableVehileDetail tbody').on('click', 'tr', function () {
+            debugger;
 
-    //    $('#grid').load('/Index/?handler=VehiclePartial');
-    //});
+            var dto = dataTble.row(this).data();
 
+            $('#editVehicleSectionDiv').load('/Vehicle/_EditVehiclePartial/?handler=VehiclePartial&vehicleId=' + dto.id);
+        });
+    }
+    
 </script>
