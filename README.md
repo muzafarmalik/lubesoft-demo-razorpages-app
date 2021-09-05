@@ -14,10 +14,15 @@ Use develop or master branch to clone.
 After cloning code, open `\DemoRazorPageApp.sln` in Visual Studio and press `F5`.
 
 ## Run in CLI
-Move to default runable project folder named `DemoRazorPageApp` folder and Run following commands in windows powershell. 
+Move to App solution folder named `DemoRazorPageApp.sln` folder and Run following commands in windows powershell. 
+
 ```bash
 dotnet restore
 dotnet build
+```
+Move to default runable project folder named `DemoRazorPageApp` folder and Run following commands in windows powershell. 
+
+```bash
 dotnet run
 ```
 
