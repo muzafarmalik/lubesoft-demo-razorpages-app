@@ -11,11 +11,11 @@ namespace DemoRazorPageApp.Common.DataHelpers
 {
     public static class Utility
     {
-        public static string WriteJson(object listObj ,string path)
+        public static async Task<string> WriteJson(object listObj ,string path)
         {
             //using FileStream createStream = File.Create(@"D:\path.json");
             using FileStream createStream = File.Create(path);
-            JsonSerializer.SerializeAsync(createStream, listObj);
+            await JsonSerializer.SerializeAsync(createStream, listObj);
 
             return createStream.Name;
         }

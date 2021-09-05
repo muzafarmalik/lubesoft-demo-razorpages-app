@@ -111,7 +111,7 @@ namespace DemoRazorPageApp.Services.Vehicle
                 System.IO.File.Delete(_appSettings.VehicleDataFilePath);
 
                 var vehicleWriteModel = new VehicleListJsonModel { Vehicles = allExistingVehicles };
-                var jsonFile = Utility.WriteJson(vehicleWriteModel, _appSettings.VehicleDataFilePath);
+                var jsonFile =  await Utility.WriteJson(vehicleWriteModel, _appSettings.VehicleDataFilePath);
 
             }
             //Reloading new file - json data of vehicles
