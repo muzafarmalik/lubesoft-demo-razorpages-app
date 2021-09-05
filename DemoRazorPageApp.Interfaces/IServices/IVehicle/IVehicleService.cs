@@ -9,6 +9,9 @@ namespace DemoRazorPageApp.Interfaces.IServices.IVehicle
     public interface IVehicleService
     {
         Task<BaseResponse> GetAllVehicles(HttpRequest request);
-        int TestGetAllVehicles();
+        Task<BaseResponse> TestGetAllVehicles(string vehiclesJsonFilePath);
+        Task<BaseResponse> TestGetAllVehiclesForUnitTest(string vehiclesJsonFilePath);
+        Task<BaseResponse> GetVehicleById(int vehicleId);
+        Task<BaseResponse> UpdateVehicle(VehicleModel vehicleModel);
     }
 }
