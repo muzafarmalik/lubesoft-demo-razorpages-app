@@ -22,3 +22,9 @@ dotnet run
 ```
 
 Visit https://localhost:5001
+
+## Known Issues
+- Issue Status - Resoved - This issue was about vehicle json file deletion and recreation with updated data and to reload new json file. 
+  As we are not using any database so, used a json file data. And the issue is, system sometime deletes the file 
+  and create an empty one and it doesn't show any data in grid.I have created a backup folder with backup data file, 
+  you can copy from `./DemoRazorPageApp/wwwroot/data/backup` to `./DemoRazorPageApp/wwwroot/data` to test your basic flow.

@@ -1,5 +1,6 @@
 ﻿@page
 @model IndexModel
+
 @{
     ViewData["Title"] = "Home";
 }
@@ -8,48 +9,15 @@
     <div class="inner-wrapper">
         <div class="sidebar">
             <a href="" class="logo">
-                <h5 class="logotext">LubeSoft</h5>
+                <h5 class="logotext"> LubeSoft</h5>
             </a>
-            <div class="sidebar-menu">
-                <ul class="menu-ul">
-                    <li class="menu-li">
-                        <a href="" class="menu-a">Home</a>
-                    </li>
-                    <li class="menu-li">
-                        <a href="" class="menu-a">Work Order</a>
-                    </li>
-                    <li class="menu-li">
-                        <a href="" class="menu-a">Customer</a>
-                    </li>
-                    <li class="menu-li">
-                        <a href="" class="menu-a">ESM</a>
-                    </li>
-                    <li class="menu-li">
-                        <a href="" class="menu-a">Services</a>
-                    </li>
-                    <li class="menu-li">
-                        <a href="" class="menu-a">Vehicle</a>
-                    </li>
-                    <li class="menu-li">
-                        <a href="" class="menu-a">Fleet</a>
-                    </li>
-                    <li class="menu-li">
-                        <a href="" class="menu-a">Warning</a>
-                    </li>
-                    <li class="menu-li">
-                        <a href="" class="menu-a">Club</a>
-                    </li>
-                    <li class="menu-li">
-                        <a href="" class="menu-a">To Bay</a>
-                    </li>
-                </ul>
-            </div>
+            <partial name="_SidebarPartial" />
         </div>
         <div class="body-main">
             <div class="top-nav"></div>
             <div class="body-wrapper">
                 <div class="body-wrapper-inr">
-                    <h3 class="heading">Search Vehicle</h3>
+                    <h3 class="heading"> Search Vehicle</h3>
                     <div class="input-main">
                         <span class="img-otr">
                             <img class="icon" src="~/img/search-icon.png" alt="icon">
@@ -59,9 +27,6 @@
                             <img class="icon" src="~/img/close-icon.png" alt="icon">
                         </span>
                     </div>
-                    @*<div class="left-head-content">
-                        <span class="inner-number" id="total-items">0</span>
-                    </div>*@
                     <table id="grdTableVehileDetail" class="table table-striped datatable-custom" style="width:100%">
                         <thead>
                             <tr class="table-main-header">
@@ -77,19 +42,50 @@
 
                     </table>
                 </div>
+                
+                <div id="editVehicleSectionDiv"></div>
+
             </div>
         </div>
+
+       
     </div>
 </div>
 
 <script src="~/js/custom-datatable.js"></script>
 
-<script>
+<script type="text/javascript">
+
+
+    //$(document).ready(function () {
+
+    //    debugger;
+       
+    //    var dataTble = $('#grdTableVehileDetail').DataTable();
+    //    $('#grdTableVehileDetail tbody').on('click', 'tr', function () {
+    //        debugger;
+
+    //        var dto = dataTble.row(this).data();
+
+    //        $('#editVehicleSectionDiv').load('/Vehicle/_EditVehiclePartial/?handler=VehiclePartial&vehicleId=' + dto.id);
+    //    });
+    //});
+
+    
+    //$('#grdTableVehileDetail').on('select.dt', function (e, dt, type, indexes) {
+    //    debugger;
+    //    var data = dt.rows(indexes).data();
+    //    console.log(data);
+
+    //     $('#grid').load('/Index/?handler=VehiclePartial');
+
+    //});
 
     window.onload = function () {
 
         var $dataTable = $("#grdTableVehileDetail");
         var table = $dataTable.DataTable({
+            aaSorting: [[6, 'asc']],
             pagingType: 'simple',
             language: {
                 //"info": "Displaying (_PAGE_) of _PAGES_",   // https://datatables.net/reference/option/language
@@ -98,7 +94,7 @@
                     previous: '<span class=" icon-left"></span>'
                 },
 
-                "processing": '< img src="~/img/Spinner.svg" />',
+                "processing": '<img src="~/img/Spinner.svg"/>',
                 "emptyTable": "No vehicles found."
             },
 
@@ -114,7 +110,7 @@
                 "type": "POST",
                 "datatype": "json",
                 "complete": function (data) {
-                    $('#total-items').prop('textContent', data['responseJSON'].recordsTotal);
+                    //$('#total-items').prop('textContent', data['responseJSON'].recordsTotal);
                 }
             },
 
@@ -157,27 +153,40 @@
                 {
                     "targets": [6],
                     "searchable": false,
-                    "orderable": false,
+                    "orderable": true,
                     "width": "15%"
                 }],
 
             "columns": [
                 { "data": "id", "name": "Id", "autoWidth": false },
-                { "data": "vehicleId", "title": "Vehicle Id", "name": "VehicleId", "autoWidth": true },
-                { "data": "customerName", "title": "Customer Name", "name": "CustomerName", "autoWidth": true },
-                { "data": "phone", "title": "Phone", "name": "Phone", "autoWidth": true },
-                { "data": "vehicleDescription", "title": "Vehicle Description", "name": "VehicleDescription", "autoWidth": true },
-                { "data": "vin", "title": "VIN", "name": "VIN","autoWidth": true },
+                { "data": "vehicleId", "title": "Vehicle Id", "autoWidth": true },
+                { "data": "customerName", "title": "Customer Name", "autoWidth": true },
+                { "data": "phone", "title": "Phone", "autoWidth": true },
+                { "data": "vehicleDescription", "title": "Vehicle Description", "autoWidth": true },
+                { "data": "vin", "title": "VIN", "name": "VIN", "autoWidth": true },
                 { "data": "lastServiceDate", "title": "Last Service", "name": "LastServiceDate", "autoWidth": true }
-                // data: key in view model; title: table header value; name: domain model key;
             ]
         });
 
         customDatatable_init(table);
+        registerTableRowClickEvent();
     };
 
     function ClearSearchField() {
         $('#search-string').val('');
         $('#grdTableVehileDetail').DataTable().search("").draw();
+    };
+
+    function registerTableRowClickEvent() {
+
+        var dataTble = $('#grdTableVehileDetail').DataTable();
+        $('#grdTableVehileDetail tbody').on('click', 'tr', function () {
+            debugger;
+
+            var dto = dataTble.row(this).data();
+
+            $('#editVehicleSectionDiv').load('/Vehicle/_EditVehiclePartial/?handler=VehiclePartial&vehicleId=' + dto.id);
+        });
     }
+    
 </script>

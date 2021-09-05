@@ -5,15 +5,17 @@ VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp", "DemoRazorPageApp\DemoRazorPageApp.csproj", "{9028F90C-E177-4FC9-B628-47EE68AA4CBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoRazorPageApp.Services", "DemoRazorPageApp.Services\DemoRazorPageApp.Services.csproj", "{3400B9D4-1836-42FD-83AD-52282E8992B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp.Services", "DemoRazorPageApp.Services\DemoRazorPageApp.Services.csproj", "{3400B9D4-1836-42FD-83AD-52282E8992B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoRazorPageApp.Common", "DemoRazorPageApp.Common\DemoRazorPageApp.Common.csproj", "{C1758B3B-EC76-4A13-BECC-46F65ABAC7D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp.Common", "DemoRazorPageApp.Common\DemoRazorPageApp.Common.csproj", "{C1758B3B-EC76-4A13-BECC-46F65ABAC7D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoRazorPageApp.Models", "DemoRazorPageApp.Models\DemoRazorPageApp.Models.csproj", "{3325CDF1-A8F3-4995-85A8-5CF891A75636}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp.Models", "DemoRazorPageApp.Models\DemoRazorPageApp.Models.csproj", "{3325CDF1-A8F3-4995-85A8-5CF891A75636}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoRazorPageApp.Interfaces", "DemoRazorPageApp.Interfaces\DemoRazorPageApp.Interfaces.csproj", "{7E1E4A26-B72B-4136-85F7-7742D23EA8B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp.Interfaces", "DemoRazorPageApp.Interfaces\DemoRazorPageApp.Interfaces.csproj", "{7E1E4A26-B72B-4136-85F7-7742D23EA8B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoRazorPageApp.Repos", "DemoRazorPageApp.Repos\DemoRazorPageApp.Repos.csproj", "{040EABCF-8984-4258-A858-E7CEC232EA42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp.Repos", "DemoRazorPageApp.Repos\DemoRazorPageApp.Repos.csproj", "{040EABCF-8984-4258-A858-E7CEC232EA42}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoRazorPageApp.Tests", "DemoRazorPageApp.Tests\DemoRazorPageApp.Tests.csproj", "{BBC6C8F4-98B3-491D-800B-DC8391444238}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{040EABCF-8984-4258-A858-E7CEC232EA42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{040EABCF-8984-4258-A858-E7CEC232EA42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{040EABCF-8984-4258-A858-E7CEC232EA42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC6C8F4-98B3-491D-800B-DC8391444238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC6C8F4-98B3-491D-800B-DC8391444238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC6C8F4-98B3-491D-800B-DC8391444238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC6C8F4-98B3-491D-800B-DC8391444238}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

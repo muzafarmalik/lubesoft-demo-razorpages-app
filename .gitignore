@@ -14,3 +14,6 @@
 /DemoRazorPageApp.Repos/obj
 /DemoRazorPageApp.Services/bin/Debug/net5.0
 /DemoRazorPageApp.Services/obj
+/DemoRazorPageApp.Tests/obj/Debug/net5.0
+/DemoRazorPageApp.Tests/obj
+/.vs
